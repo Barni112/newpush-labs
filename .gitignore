@@ -28,3 +28,5 @@ provisioning/scripts/deploy.sh
 NOTES.md
 utils/*
 services/casdoor/casdoor.db_orig
+
+/.idea
