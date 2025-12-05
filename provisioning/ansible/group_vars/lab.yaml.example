@@ -1,5 +1,5 @@
 ---
-ansible_python_interpreter: /usr/bin/python3
+ansible_python_interpreter: /home/labuser/newpush-labs/.venv/bin/python3
 
 lab_dir: /opt/student-lab
 
@@ -9,7 +9,7 @@ acme_email: <ACME_EMAIL>
 acme_zerossl_hmac_encoded: <ACME_ZEROSSL_HMAC_ENCODED>
 acme_zerossl_kid: <ACME_ZEROSSL_KID>
 
-traefik_crowdsec_bouncer: true
+traefik_crowdsec_bouncer: false
 
 # Required for the CrowdSec plugin for Traefik. 
 # If not present and CrowdSec is enabled, suspected bots will receive an HTTP error code instead of a CAPTCHA challenge.
@@ -30,7 +30,7 @@ generic_oauth_client_secret:
 #lab_domain:
 
 # used for configuring sshwiftly and ssh key, defaults to string returned by "curl -s -4 https://ifconfig.me"
-lab_external_ip: <IP_OF_VM>
+lab_external_ip: <PRIVATE_IP_OF_VM>
 
 # this user will be created if uid 1000 not exists
 lab_user: labuser
