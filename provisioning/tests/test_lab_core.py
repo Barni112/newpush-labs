@@ -42,16 +42,16 @@ def test_core_docker_running_and_enabled(host, service_name):
     assert service.is_running
 
 @pytest.fixture(scope="module")
-def url():
+def url(host):
     with open("./provisioning/ansible/group_vars/lab.yaml", "r") as f:
         txt = f.read()
-    domain = re.search(r"^lab_domain:\s+(.*)$", txt, re.MULTILINE)
+    domain = re.search(r"^lab_domain:[\r\t\f\v ]+(.+)$", txt, re.MULTILINE)
     if domain:
-        return {domain.groups()[-1]}
-    ext_ip = re.search(r"^lab_external_ip:\s+(.*)$", txt, re.MULTILINE)
+        return domain.groups()[-1]
+    ext_ip = re.search(r"^lab_external_ip:[\r\t\f\v ]+(.+)$", txt, re.MULTILINE)
     if ext_ip:
         return f"{ext_ip.groups()[-1]}.traefik.me"
-    raise LookupError("No lab_domain or lab_external_ip found in ./provisioning/ansible/group_vars/lab.yaml")
+    return host.run("curl -4 https://ifconfig.me").stdout.strip()
 
 def test_auth_url_loads(host, url):
     url = f"https://auth.{url}"
