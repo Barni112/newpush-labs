@@ -1,5 +1,6 @@
 title: newpush labs
 theme: dark
+checkUpdates: false
 layout:
   grid:
     small: 2
