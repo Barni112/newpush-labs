@@ -1,14 +1,15 @@
 ---
-ansible_python_interpreter: /usr/bin/python3
+ansible_python_interpreter: /home/labuser/newpush-labs/.venv/bin/python3
 
 lab_dir: /opt/student-lab
 
 # create a free account on zerossl.com to get these values
-acme_email: example@example.com
-acme_zerossl_hmac_encoded: 
-acme_zerossl_kid: 
+# must fill in, because traefik cannot explicitly be set to use self-signed certs
+acme_email: <ACME_EMAIL>
+acme_zerossl_hmac_encoded: <ACME_ZEROSSL_HMAC_ENCODED>
+acme_zerossl_kid: <ACME_ZEROSSL_KID>
 
-traefik_crowdsec_bouncer: true
+traefik_crowdsec_bouncer: false
 
 # Required for the CrowdSec plugin for Traefik. 
 # If not present, bots will receive an HTTP error code instead of a CAPTCHA challenge.
@@ -26,10 +27,10 @@ generic_oauth_client_id: 5e7c01af6d262109e111
 generic_oauth_client_secret:  
 
 # if lab_domain left unset then the default will be: <EXTERNAL_IP>.traefik.me
-# lab_domain:
+#lab_domain:
 
 # used for configuring sshwiftly and ssh key, defaults to 1000 userid if empty
-lab_external_ip:
+lab_external_ip: <PRIVATE_IP_OF_VM>
 
 # this user will be created if uid 1000 not exists
 lab_user: labuser
