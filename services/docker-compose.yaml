@@ -14,6 +14,16 @@ services:
     extends:
       file: docker-compose.traefik.yaml
       service: whoami
+  keycloak-postgres:
+    extends:
+      file: docker-compose.keycloak.yaml
+      service: keycloak-postgres
+  keycloak:
+    extends:
+      file: docker-compose.keycloak.yaml
+      service: keycloak
+    depends_on:
+      - keycloak-postgres
   casdoor:
     extends:
       file: docker-compose.casdoor.yaml
@@ -108,4 +118,6 @@ services:
 
 networks:
   web:
+    external: True
+  keycloak-net:
     external: True

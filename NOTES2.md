@@ -29,6 +29,7 @@
   > Use private ip.  
   > Still have to provide acme config, because it can't explicitly be told to use self-signed certs  
   > but it will fall back on them.
+- Add hosts in provisioning/ansible/inventory/hosts
 
 # start
 - sudo bash -c "source .venv/bin/activate && make setup HOSTS_FILE=./provisioning/ansible/inventory/hosts"

@@ -17,6 +17,7 @@
     create: true
     regexp: '^LAB_IP='
     mode: "0644"
+
 - name: Add CODER_ACCESS_URL variable to .env file if it doesn't exist
   ansible.builtin.lineinfile:
     path: "{{ lab_dir }}/services/.env"
@@ -24,8 +25,6 @@
     create: true
     regexp: '^CODER_ACCESS_URL='
     mode: "0644"
-
-
 
 - name: Get client secret from casdoor
   ansible.builtin.command: python3 {{ lab_dir }}/utils/casdoor/casdoor-rotate-secrets.py --db {{ lab_dir }}/services/casdoor/casdoor.db
@@ -54,6 +53,24 @@
     line: "LAB_OAUTH_CLIENT_SECRET={{ generic_oauth_client_secret }}"
     create: true
     regexp: '^LAB_OAUTH_CLIENT_SECRET='
+    mode: "0644"
+
+- name: Get client secret from casdoor
+  ansible.builtin.command: python3 {{ lab_dir }}/utils/keycloak/keycloak_db_password.py {{ lab_dir }}/services/keycloak-data/.keycloak
+  register: cmd_postgres_pass
+  changed_when: false
+  failed_when: false
+
+- name: Extract postgres db password
+  ansible.builtin.set_fact:
+    kc_db_password: "{{ cmd_postgres_pass.stdout }}"
+
+- name: Add KC_DB_PASSWORD if it doesn't exist
+  ansible.builtin.lineinfile:
+    path: "{{ lab_dir }}/services/.env"
+    line: "KC_DB_PASSWORD={{ kc_db_password }}"
+    create: true
+    regexp: '^KC_DB_PASSWORD='
     mode: "0644"
 
 - name: Add OPENAI_API_KEY and enable OpenAI if it doesn't exist and is set
