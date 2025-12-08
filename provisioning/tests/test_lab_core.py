@@ -51,7 +51,7 @@ def url(host):
     ext_ip = re.search(r"^lab_external_ip:[\r\t\f\v ]+(.+)$", txt, re.MULTILINE)
     if ext_ip:
         return f"{ext_ip.groups()[-1]}.traefik.me"
-    return host.run("curl -4 https://ifconfig.me").stdout.strip()
+    return f"{host.run("curl -4 https://ifconfig.me").stdout.strip()}.traefik.me"
 
 def test_auth_url_loads(host, url):
     url = f"https://auth.{url}"
