@@ -155,6 +155,7 @@
       - "dockge/stacks/lab-tools-kestra/compose.yaml"
       - "dockge/stacks/lab-tools-searxng/compose.yaml"
       - "dockge/stacks/lab-tools-whoami/compose.yaml"
+      - "keycloak/newpush_labs_realm.json"
       - "sshwifty/sshwifty.conf.json"
       - "traefik/conf.d/code-server.yml"
       - "traefik/conf.d/crowdsec.yml"
