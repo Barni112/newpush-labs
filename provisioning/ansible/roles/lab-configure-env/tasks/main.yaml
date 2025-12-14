@@ -1,20 +1,3 @@
-- name: Get lab external ip
-  ansible.builtin.command: "curl -s -4 https://ifconfig.me"
-  register: cmd_get_lab_external_ip
-  changed_when: false
-  failed_when: false
-  when: lab_external_ip is not defined or lab_external_ip == ""
-
-- name: Extract lab external ip
-  ansible.builtin.set_fact:
-    lab_external_ip: "{{ cmd_get_lab_external_ip.stdout }}"
-  when: lab_external_ip is not defined or lab_external_ip == ""
-
-- name: Set domain
-  ansible.builtin.set_fact:
-    lab_domain: "{{ lab_external_ip }}.traefik.me"
-  when: lab_domain is not defined or lab_domain == ""
-
 - name: Set coder access url
   ansible.builtin.set_fact:
     coder_access_url: "https://coder.{{ lab_external_ip }}.traefik.me"
