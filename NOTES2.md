@@ -29,9 +29,11 @@ ansible-galaxy install -r provisioning/ansible/requirements.yaml
 cp provisioning/ansible/group_vars/lab.yaml.example provisioning/ansible/group_vars/lab.yaml
 ```
 
-# start
-- sudo bash -c "source .venv/bin/activate && make setup HOSTS_FILE=./provisioning/ansible/inventory/hosts"
-- sudo bash -c "source .venv/bin/activate && make test"
+# install & test
+```bash
+sudo bash -c "source .venv/bin/activate && make setup HOSTS_FILE=./provisioning/ansible/inventory/hosts"
+sudo bash -c "source .venv/bin/activate && make test"
+```
 
 # user password
 - docker inspect casdoor -> Mounts -> casdoor.db
