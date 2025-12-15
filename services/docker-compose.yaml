@@ -16,24 +16,20 @@ services:
       service: whoami
   keycloak-postgres:
     extends:
-      file: docker-compose.keycloak.yaml
+      file: docker-compose.keycloak.yaml.j2
       service: keycloak-postgres
   keycloak:
     extends:
-      file: docker-compose.keycloak.yaml
+      file: docker-compose.keycloak.yaml.j2
       service: keycloak
     depends_on:
       - keycloak-postgres
-  casdoor:
-    extends:
-      file: docker-compose.casdoor.yaml
-      service: casdoor
   traefik-forward-auth:
     extends:
-      file: docker-compose.casdoor.yaml
+      file: docker-compose.keycloak.yaml.j2
       service: traefik-forward-auth
     depends_on:
-      - casdoor
+      - keycloak
   mafl:
     extends:
       file: docker-compose.mafl.yaml

@@ -26,7 +26,7 @@ def test_traefik_running_and_enabled(host):
     # "traefik-forward-auth",
     "traefik",
     "mafl",
-    "casdoor",
+    "keycloak",
     # "keycloak",
     # "keycloak-postgres",
     # "prometheus",

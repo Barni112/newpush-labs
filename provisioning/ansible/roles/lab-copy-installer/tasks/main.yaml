@@ -9,9 +9,3 @@
     src: /usr/local/bin/newpush-lab
     dest: /usr/local/bin/lab
     state: link
-
-- name: Copy casdoor utils
-  ansible.builtin.copy:
-    src: "../../utils/casdoor"
-    dest: "{{ lab_dir }}/utils/"
-    mode: "0755"

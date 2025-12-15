@@ -17,17 +17,9 @@ services:
         wrap: true
       status:
         enabled: true
-    - title: Casdoor
-      description: An Identity Access Management Platform
-      link: 'https://auth.${DOMAIN}'
-      icon:
-        url: https://cdn.jsdelivr.net/gh/selfhst/icons/png/casdoor.png
-        wrap: true
-      status:
-        enabled: true
     - title: Keycloak
       description: Identity and Access Management
-      link: "https://kcauth.192.168.0.133.traefik.me"
+      link: "https://auth.${DOMAIN}"
       icon:
         url: https://cdn.jsdelivr.net/gh/selfhst/icons/png/keycloak.png
         wrap: true

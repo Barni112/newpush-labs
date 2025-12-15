@@ -21,39 +21,21 @@
     group: 50
   when: not mafl_config_stat.stat.exists
 
-- name: Ensure casdoor.db directory exists
+- name: Ensure keycloak directory exists
   ansible.builtin.file:
-    path: "{{ lab_dir }}/services/casdoor"
+    path: "{{ lab_dir }}/services/keycloak"
     state: directory
     mode: '0755'
     owner: 1000
     group: 50
 
-- name: Check if casdoor.db exists
-  ansible.builtin.stat:
-    path: "{{ lab_dir }}/services/casdoor/casdoor.db"
-  register: casdoor_db_stat
-
-- name: Copy casdoor.db if not yet present
-  ansible.builtin.copy:
-    src: ../../services/casdoor/casdoor.db_template
-    dest: "{{ lab_dir }}/services/casdoor/casdoor.db"
-    mode: '0777'
-    backup: true
-  when: not casdoor_db_stat.stat.exists
-
-- name: Get client secret from casdoor
-  ansible.builtin.command: python3 {{ lab_dir }}/utils/casdoor/casdoor-rotate-secrets.py --db {{ lab_dir }}/services/casdoor/casdoor.db
-  register: cmd_casdoor_rotate_secrets
-  changed_when: false
-  failed_when: false
-
-- name: Extract Client Secret
+- name: Generate Client Secret
   ansible.builtin.set_fact:
-    generic_oauth_client_secret: "{{ cmd_casdoor_rotate_secrets.stdout_lines \
-                                          | select('search', 'Client Secret: ') \
-                                          | map('regex_replace', '^.*Client Secret: ', '') \
-                                          | first }}"
+    oauth_client_secret: "{{ lookup('ansible.builtin.password', '/dev/null', length=32, chars='ascii_letters,digits') }}"
+
+- name: Generate Cookie Secret
+  ansible.builtin.set_fact:
+    cookie_secret: "{{ lookup('ansible.builtin.password', '/dev/null', length=32, chars='ascii_letters,digits') }}"
 
 - name: Get lab external ip
   ansible.builtin.command: "curl -s -4 https://ifconfig.me"
@@ -123,7 +105,7 @@
     src: "../../services/{{ item }}/"
     dest: "{{ lab_dir }}/services/{{ item }}/"
   with_items:
-    - "casdoor"
+    - "keycloak"
     - "dockge"
     - "grafana"
     - "loki"
@@ -159,12 +141,6 @@
   ansible.builtin.template:
     src: ../../services/docker-compose.grafana.yaml.j2
     dest: "{{ lab_dir }}/services/docker-compose.grafana.yaml"
-    mode: '0644'
-
-- name: Render the Jinja2 template for Casdoor
-  ansible.builtin.template:
-    src: ../../services/docker-compose.casdoor.yaml.j2
-    dest: "{{ lab_dir }}/services/docker-compose.casdoor.yaml"
     mode: '0644'
 
 - name: Render the Jinja2 template for Keycloak realm
@@ -223,7 +199,6 @@
     - "{{ lab_dir }}/services/traefik/traefik.yml.j2"
     - "{{ lab_dir }}/services/dockge/stacks/lab-llm-perplexica/perplexica/config.toml.j2"
     - "{{ lab_dir }}/services/docker-compose.grafana.yaml.j2"
-    - "{{ lab_dir }}/services/docker-compose.casdoor.yaml.j2"
     - "{{ lab_dir }}/services/keycloak/newpush_labs_realm.json.j2"
     - "{{ lab_dir }}/services/docker-compose.dockge.yaml.j2"
     - "{{ lab_dir }}/services/docker-compose.code-server.yaml.j2"
