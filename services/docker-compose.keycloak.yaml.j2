@@ -8,13 +8,14 @@ services:
     # - "4181:4181"
     # noinspection HttpUrlsUsage
     environment:
-      - DEFAULT_PROVIDER=oidc
-      - PROVIDERS_OIDC_ISSUER_URL=http://auth.${DOMAIN}/realms/newpush-labs
-      - PROVIDERS_OIDC_CLIENT_ID={{ oauth_client_id }}
-      - PROVIDERS_OIDC_CLIENT_SECRET={{ oauth_client_secret }}
+      - DEFAULT_PROVIDER=generic-oauth
+      - PROVIDERS_GENERIC_OAUTH_AUTH_URL=https://auth.${DOMAIN}/realms/newpush-labs/protocol/openid-connect/auth
+      - PROVIDERS_GENERIC_OAUTH_TOKEN_URL=https://auth.${DOMAIN}/realms/newpush-labs/protocol/openid-connect/token
+      - PROVIDERS_GENERIC_OAUTH_USER_URL=https://auth.${DOMAIN}/realms/newpush-labs/protocol/openid-connect/userinfo
+      - PROVIDERS_GENERIC_OAUTH_CLIENT_ID={{ oauth_client_id }}
+      - PROVIDERS_GENERIC_OAUTH_CLIENT_SECRET={{ oauth_client_secret }}
+      - PROVIDERS_GENERIC_OAUTH_SKIP_VERIFY_TLS=true
       - SECRET={{ cookie_secret }}
-      - AUTH_HOST=auth.${DOMAIN}
-      - COOKIE_DOMAIN=${DOMAIN}
       - LOG_LEVEL=debug
       - INSECURE_COOKIE=true # Example assumes no https, do not use in production
     labels:
@@ -41,7 +42,6 @@ services:
       - KC_DB_PASSWORD=${KC_DB_PASSWORD}
       - KC_HOSTNAME=auth.${DOMAIN}
       - KC_HOSTNAME_STRICT=false
-#      - KC_HOSTNAME_STRICT_BACKCHANNEL=false  # Deprecated
       - KC_BOOTSTRAP_ADMIN_USERNAME=admin
       - KC_BOOTSTRAP_ADMIN_PASSWORD=hacker
       - KC_PROXY_HEADERS=xforwarded
