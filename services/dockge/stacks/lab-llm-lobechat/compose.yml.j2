@@ -73,13 +73,13 @@ services:
         condition: service_started
     environment:
       - 'APP_URL=https://lobe.${DOMAIN}'
-      - 'NEXT_AUTH_SSO_PROVIDERS=casdoor'
+      - 'NEXT_AUTH_SSO_PROVIDERS=keycloak'
       - 'KEY_VAULTS_SECRET=Kix2wcUONd4CX51E/ZPAd36BqM4wzJgKjPtz2sGztqQ='
       - 'NEXT_AUTH_SECRET=NX2kaPE923dt6BL2U8e9oSre5RfoT7hg'
       - 'AUTH_URL=https://lobe.${DOMAIN}/api/auth'
-      - 'AUTH_CASDOOR_ISSUER=https://auth.${DOMAIN}'
-      - 'AUTH_CASDOOR_ID={{ generic_oauth_client_id }}'
-      - 'AUTH_CASDOOR_SECRET={{ generic_oauth_client_secret }}'
+      - 'AUTH_KEYCLOAK_ISSUER=https://auth.${DOMAIN}'
+      - 'AUTH_KEYCLOAK_ID={{ oauth_client_id }}'
+      - 'AUTH_KEYCLOAK_SECRET={{ oauth_client_secret }}'
       - 'DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD}@postgresql:5432/${LOBE_DB_NAME}'
       - 'S3_ENDPOINT=http://localhost:${MINIO_PORT}'
       - 'S3_BUCKET=${MINIO_LOBE_BUCKET}'

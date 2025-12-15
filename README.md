@@ -27,7 +27,7 @@ We are thrilled to have you here! This repository is dedicated to the newpush la
 to facilitate learning and experimentation in various IT and cybersecurity domains. Whether you are a student, educator,
 or professional, our lab provides the tools and resources you need to enhance your skills and knowledge.
 
-* **Single Sign-On (SSO):** Out of the box SSO integration with Casdoor for a unified login experience.
+* **Single Sign-On (SSO):** Out of the box SSO integration with Keycloak for a unified login experience.
 * **Ingress Controller:** Traefik on steroids, with https provisioning and authentication middleware
 * **Monitoring:** Monitor and visualize your lab environment's performance and metrics with built-in Grafana dashboards
   and Loki for log aggregation and analysis.

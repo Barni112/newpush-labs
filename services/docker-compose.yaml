@@ -24,16 +24,12 @@ services:
       service: keycloak
     depends_on:
       - keycloak-postgres
-  casdoor:
-    extends:
-      file: docker-compose.casdoor.yaml
-      service: casdoor
   traefik-forward-auth:
     extends:
-      file: docker-compose.casdoor.yaml
+      file: docker-compose.keycloak.yaml
       service: traefik-forward-auth
     depends_on:
-      - casdoor
+      - keycloak
   mafl:
     extends:
       file: docker-compose.mafl.yaml

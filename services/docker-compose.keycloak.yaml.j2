@@ -1,4 +1,33 @@
 services:
+  traefik-forward-auth:
+    image: lracz/traefik-forward-auth:latest
+    container_name: traefik-forward-auth
+    restart: unless-stopped
+    user: "1000:1000"
+    # ports:
+    # - "4181:4181"
+    environment:
+      - DEFAULT_PROVIDER=oidc
+      - PROVIDERS_OIDC_ISSUER_URL=https://auth.${DOMAIN}/realms/newpush-labs
+      - PROVIDERS_OIDC_CLIENT_ID={{ oauth_client_id }}
+      - PROVIDERS_OIDC_CLIENT_SECRET={{ oauth_client_secret }}
+      - SECRET={{ cookie_secret }}
+      - AUTH_HOST=auth.${DOMAIN}
+      - COOKIE_DOMAIN=${DOMAIN}
+      - LOG_LEVEL=debug
+      - INSECURE_COOKIE=true # Example assumes no https, do not use in production
+    labels:
+      - "traefik.http.middlewares.traefik-forward-auth.forwardauth.address=http://traefik-forward-auth:4181"
+      - "traefik.http.middlewares.traefik-forward-auth.forwardauth.authResponseHeaders=X-Forwarded-User"
+      - "traefik.http.middlewares.traefik-forward-auth.forwardauth.tls.insecureSkipVerify=true"
+      - "traefik.http.services.traefik-forward-auth.loadbalancer.server.port=4181"
+    networks:
+      - web
+{% if is_vagrant | default(false) %}
+    extra_hosts:
+      - "auth.${DOMAIN}:host-gateway"
+{% endif %}
+
   keycloak:
     image: quay.io/keycloak/keycloak:latest
     container_name: keycloak
@@ -9,7 +38,7 @@ services:
       - KC_DB_URL=jdbc:postgresql://keycloak-postgres:5432/keycloak
       - KC_DB_USERNAME=keycloak
       - KC_DB_PASSWORD=${KC_DB_PASSWORD}
-      - KC_HOSTNAME=kcauth.${DOMAIN}
+      - KC_HOSTNAME=auth.${DOMAIN}
       - KC_HOSTNAME_STRICT=false
 #      - KC_HOSTNAME_STRICT_BACKCHANNEL=false  # Deprecated
       - KC_BOOTSTRAP_ADMIN_USERNAME=admin
@@ -23,7 +52,7 @@ services:
       - ./keycloak:/opt/keycloak/data/import:ro
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.keycloak.rule=Host(`kcauth.${DOMAIN}`)"
+      - "traefik.http.routers.keycloak.rule=Host(`auth.${DOMAIN}`)"
       - "traefik.http.routers.keycloak.entrypoints=https"
       - "traefik.http.services.keycloak.loadbalancer.server.port=8080"
       - "traefik.http.routers.keycloak.service=keycloak"

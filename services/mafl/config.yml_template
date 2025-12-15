@@ -25,8 +25,8 @@ services:
       icon:
         name: devicon:traefikproxy
         wrap: true
-    - title: Casdoor
-      description: Casdoor
+    - title: Keycloak
+      description: Keycloak
       link: 'https://auth.DOMAIN'
       icon:
         name: devicon:oauth

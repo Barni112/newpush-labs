@@ -19,9 +19,8 @@ openai_api_key:
 anthropic_api_key: 
 groq_api_key: 
 
-# Client id and secret as present in keycloak.
-generic_oauth_client_id: 5e7c01af6d262109e111
-generic_oauth_client_secret:
+# Client id as present in keycloak.
+oauth_client_id: traefik-forward-auth
 
 # If lab_domain left unset then the default will be: "{{ lab_external_ip }}.traefik.me".
 #lab_domain:
