@@ -6,9 +6,10 @@ services:
     user: "1000:1000"
     # ports:
     # - "4181:4181"
+    # noinspection HttpUrlsUsage
     environment:
       - DEFAULT_PROVIDER=oidc
-      - PROVIDERS_OIDC_ISSUER_URL=https://auth.${DOMAIN}/realms/newpush-labs
+      - PROVIDERS_OIDC_ISSUER_URL=http://auth.${DOMAIN}/realms/newpush-labs
       - PROVIDERS_OIDC_CLIENT_ID={{ oauth_client_id }}
       - PROVIDERS_OIDC_CLIENT_SECRET={{ oauth_client_secret }}
       - SECRET={{ cookie_secret }}
