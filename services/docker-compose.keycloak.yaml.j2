@@ -1,6 +1,6 @@
 services:
   traefik-forward-auth:
-    image: lracz/traefik-forward-auth:latest
+    image: barni112/traefik-forward-auth:latest
     container_name: traefik-forward-auth
     restart: unless-stopped
     user: "1000:1000"
@@ -8,13 +8,11 @@ services:
     # - "4181:4181"
     # noinspection HttpUrlsUsage
     environment:
-      - DEFAULT_PROVIDER=generic-oauth
-      - PROVIDERS_GENERIC_OAUTH_AUTH_URL=https://auth.${DOMAIN}/realms/newpush-labs/protocol/openid-connect/auth
-      - PROVIDERS_GENERIC_OAUTH_TOKEN_URL=https://auth.${DOMAIN}/realms/newpush-labs/protocol/openid-connect/token
-      - PROVIDERS_GENERIC_OAUTH_USER_URL=https://auth.${DOMAIN}/realms/newpush-labs/protocol/openid-connect/userinfo
-      - PROVIDERS_GENERIC_OAUTH_CLIENT_ID={{ oauth_client_id }}
-      - PROVIDERS_GENERIC_OAUTH_CLIENT_SECRET={{ oauth_client_secret }}
-      - PROVIDERS_GENERIC_OAUTH_SKIP_VERIFY_TLS=true
+      - DEFAULT_PROVIDER=oidc
+      - PROVIDERS_OIDC_ISSUER_URL=https://auth.${DOMAIN}/realms/newpush-labs
+      - PROVIDERS_OIDC_CLIENT_ID={{ oauth_client_id }}
+      - PROVIDERS_OIDC_CLIENT_SECRET={{ oauth_client_secret }}
+      - PROVIDERS_OIDC_SKIP_VERIFY_TLS=true
       - SECRET={{ cookie_secret }}
       - LOG_LEVEL=debug
       - INSECURE_COOKIE=true # Example assumes no https, do not use in production
