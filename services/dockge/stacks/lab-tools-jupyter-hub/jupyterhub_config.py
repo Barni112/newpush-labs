@@ -61,7 +61,7 @@ c.Authenticator.allow_all = True
 c.JupyterHub.authenticator_class = GenericOAuthenticator
 
 c.JupyterHub.public_url = f"https://jupyter-hub.{os.environ.get('DOMAIN')}"
-
+# TODO
 c.OAuthenticator.oauth_callback_url = f"https://jupyter-hub.{os.environ.get('DOMAIN')}/hub/oauth_callback"
 c.OAuthenticator.client_id = os.environ.get("LAB_OAUTH_CLIENT_ID")
 c.OAuthenticator.client_secret = os.environ.get("LAB_OAUTH_CLIENT_SECRET")
