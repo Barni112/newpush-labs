@@ -12,7 +12,7 @@ services:
       timeout: 2s
       retries: 2
       start_period: 30s
-    restart: always
+    restart: unless-stopped
     labels:
       - "com.centurylinklabs.watchtower.enable"
       - "traefik.enable=true"
