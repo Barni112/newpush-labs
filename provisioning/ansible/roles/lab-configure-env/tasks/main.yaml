@@ -42,22 +42,16 @@
     regexp: '^LAB_OAUTH_CLIENT_SECRET='
     mode: "0644"
 
-- name: Generate password command
-  ansible.builtin.command: python3 {{ lab_dir }}/utils/keycloak/pass_gen.py
-  register: cmd_pass_gen
-  changed_when: false
-  failed_when: false
-
 - name: Generate a password
   ansible.builtin.set_fact:
-    kc_db_password: "{{ cmd_pass_gen.stdout }}"
+    kc_db_password: "{{ lookup('ansible.builtin.password', '/dev/null', length=32, chars='ascii_letters,digits') }}"
 
 - name: Add KC_DB_PASSWORD if it doesn't exist
   ansible.builtin.lineinfile:
     path: "{{ lab_dir }}/services/.env"
-    line: "KC_DB_PASSWORD="
+    line: "KC_DB_PASSWORD={{ kc_db_password }}"
     create: true
-    regexp: '^KC_DB_PASSWORD={{ kc_db_password }}'
+    regexp: "^KC_DB_PASSWORD="
     mode: "0644"
 
 - name: Add OPENAI_API_KEY and enable OpenAI if it doesn't exist and is set
