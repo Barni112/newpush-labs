@@ -107,6 +107,7 @@
     dest: "{{ lab_dir }}/services/{{ item }}/"
   with_items:
     - "keycloak"
+    - "keycloak-postgres"
     - "dockge"
     - "grafana"
     - "loki"
@@ -137,6 +138,7 @@
       - "dockge/stacks/lab-tools-kestra/compose.yaml"
       - "dockge/stacks/lab-tools-searxng/compose.yaml"
       - "dockge/stacks/lab-tools-whoami/compose.yaml"
+      - "keycloak/keycloak.conf"
       - "keycloak/newpush_labs_realm.json"
       - "sshwifty/sshwifty.conf.json"
       - "traefik/conf.d/code-server.yml"

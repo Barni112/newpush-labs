@@ -29,26 +29,13 @@ services:
 {% endif %}
 
   keycloak:
-    image: quay.io/keycloak/keycloak:latest
+    pull_policy: never
+    build:
+      context: {{ lab_dir }}/services/keycloak
+      dockerfile: keycloak.Dockerfile
+    image: newpush-lab/keycloak:optimized
     container_name: keycloak
     restart: unless-stopped
-    environment:
-      - KC_HEALTH_ENABLED=true
-      - KC_DB=postgres
-      - KC_DB_URL=jdbc:postgresql://keycloak-postgres:5432/keycloak
-      - KC_DB_USERNAME=keycloak
-      - KC_DB_PASSWORD=${KC_DB_PASSWORD}
-      - KC_HOSTNAME=https://auth.${DOMAIN}
-      - KC_HOSTNAME_STRICT=false
-      - KC_BOOTSTRAP_ADMIN_USERNAME=admin
-      - KC_BOOTSTRAP_ADMIN_PASSWORD=hacker
-      - KC_PROXY_HEADERS=xforwarded
-      - KC_HTTP_ENABLED=true
-      - KC_HTTP_PORT=8080
-      - KC_LOG_LEVEL=info
-    command: start --import-realm
-    volumes:
-      - ./keycloak:/opt/keycloak/data/import:ro
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.keycloak.rule=Host(`auth.${DOMAIN}`)"

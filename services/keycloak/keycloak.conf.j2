@@ -1,0 +1,9 @@
+db-url=jdbc:postgresql://keycloak-postgres:5432/keycloak
+db-username=keycloak
+db-password={{ kc_db_password }}
+hostname=https://auth.{{ lab_domain }}
+hostname-strict=false
+proxy-headers=xforwarded
+http-enabled=true
+http-port=8080
+log-level=info
