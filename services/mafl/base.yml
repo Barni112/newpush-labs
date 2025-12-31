@@ -19,7 +19,7 @@ services:
         enabled: true
     - title: Keycloak
       description: Identity and Access Management
-      link: "https://auth.${DOMAIN}"
+      link: "https://auth.${DOMAIN}/admin/newpush-labs/console/"
       icon:
         url: https://cdn.jsdelivr.net/gh/selfhst/icons/png/keycloak.png
         wrap: true
