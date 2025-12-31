@@ -1,16 +1,16 @@
 ---
-ansible_python_interpreter: /usr/bin/python3
+ansible_python_interpreter: /home/labuser/newpush-labs/.venv/bin/python3
 
 lab_dir: /opt/student-lab
 
 # Create a free account on zerossl.com to get these values.
-acme_email: <ACME_EMAIL>
-acme_zerossl_hmac_encoded: <ACME_ZEROSSL_HMAC_ENCODED>
-acme_zerossl_kid: <ACME_ZEROSSL_KID>
+acme_email:
+acme_zerossl_hmac_encoded:
+acme_zerossl_kid:
 # Alternatively, add "self_signed.crt" and "self_signed.key" in services/traefik/certs and set traefik_use_self_signed to true.
-traefik_use_self_signed: false
+traefik_use_self_signed: true
 
-traefik_crowdsec_bouncer: true
+traefik_crowdsec_bouncer: false
 # If not present and CrowdSec Traefik plugin is enabled, suspected bots will receive an HTTP error code instead of a CAPTCHA challenge.
 hcaptcha_site_key: 
 
@@ -23,7 +23,7 @@ groq_api_key:
 #lab_domain:
 
 # Used for configuring sshwiftly and ssh key, defaults to string returned by "curl -s -4 https://ifconfig.me".
-lab_external_ip:
+lab_external_ip: <PRIVATE_IP_OF_VM>
 
 # This user will be created if uid 1000 not exists.
 lab_user: labuser
