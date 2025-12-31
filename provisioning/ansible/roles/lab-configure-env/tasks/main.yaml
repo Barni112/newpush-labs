@@ -26,19 +26,6 @@
     regexp: '^CODER_ACCESS_URL='
     mode: "0644"
 
-- name: Get client secret from casdoor
-  ansible.builtin.command: python3 {{ lab_dir }}/utils/casdoor/casdoor-rotate-secrets.py --db {{ lab_dir }}/services/casdoor/casdoor.db
-  register: cmd_casdoor_rotate_secrets
-  changed_when: false
-  failed_when: false
-
-- name: Extract Client Secret
-  ansible.builtin.set_fact:
-    generic_oauth_client_secret: "{{ cmd_casdoor_rotate_secrets.stdout_lines \
-                                          | select('search', 'Client Secret: ') \
-                                          | map('regex_replace', '^.*Client Secret: ', '') \
-                                          | first }}"
-
 - name: Add LAB_OAUTH_CLIENT_ID if it doesn't exist
   ansible.builtin.lineinfile:
     path: "{{ lab_dir }}/services/.env"
@@ -55,22 +42,22 @@
     regexp: '^LAB_OAUTH_CLIENT_SECRET='
     mode: "0644"
 
-- name: Get client secret from casdoor
-  ansible.builtin.command: python3 {{ lab_dir }}/utils/keycloak/keycloak_db_password.py {{ lab_dir }}/services/keycloak-data/.keycloak
-  register: cmd_postgres_pass
+- name: Generate password command
+  ansible.builtin.command: python3 {{ lab_dir }}/utils/keycloak/pass_gen.py
+  register: cmd_pass_gen
   changed_when: false
   failed_when: false
 
-- name: Extract postgres db password
+- name: Generate a password
   ansible.builtin.set_fact:
-    kc_db_password: "{{ cmd_postgres_pass.stdout }}"
+    kc_db_password: "{{ cmd_pass_gen.stdout }}"
 
 - name: Add KC_DB_PASSWORD if it doesn't exist
   ansible.builtin.lineinfile:
     path: "{{ lab_dir }}/services/.env"
-    line: "KC_DB_PASSWORD={{ kc_db_password }}"
+    line: "KC_DB_PASSWORD="
     create: true
-    regexp: '^KC_DB_PASSWORD='
+    regexp: '^KC_DB_PASSWORD={{ kc_db_password }}'
     mode: "0644"
 
 - name: Add OPENAI_API_KEY and enable OpenAI if it doesn't exist and is set

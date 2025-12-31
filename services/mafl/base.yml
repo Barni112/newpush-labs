@@ -28,6 +28,11 @@ services:
     - title: Keycloak
       description: Identity and Access Management
       link: "https://kcauth.192.168.0.133.traefik.me"
+      icon:
+        url: https://cdn.jsdelivr.net/gh/selfhst/icons/png/keycloak.png
+        wrap: true
+      status:
+        enabled: true
     - title: Visual Studio Code
       description: Access your lab with VSCode
       link: 'https://www.${DOMAIN}/labs/code-server/'
