@@ -3,38 +3,36 @@ ansible_python_interpreter: /usr/bin/python3
 
 lab_dir: /opt/student-lab
 
-# create a free account on zerossl.com to get these values
-acme_email: example@example.com
-acme_zerossl_hmac_encoded: 
-acme_zerossl_kid: 
+# Create a free account on zerossl.com to get these values.
+acme_email: <ACME_EMAIL>
+acme_zerossl_hmac_encoded: <ACME_ZEROSSL_HMAC_ENCODED>
+acme_zerossl_kid: <ACME_ZEROSSL_KID>
 
 traefik_crowdsec_bouncer: true
-
-# Required for the CrowdSec plugin for Traefik. 
-# If not present, bots will receive an HTTP error code instead of a CAPTCHA challenge.
+# If not present and CrowdSec Traefik plugin is enabled, suspected bots will receive an HTTP error code instead of a CAPTCHA challenge.
 hcaptcha_site_key: 
 
-# bring your own keys 
+# Bring your own keys (optional).
 openai_api_key: 
 anthropic_api_key: 
 groq_api_key: 
 
-# the application name is being used to find the client id and secret in the casdoor database for the generic oauth provider
-# only change the name of the application if there is already an application in the casdoor database with this name 
-generic_oauth_application_name: application 
-generic_oauth_client_id: 5e7c01af6d262109e111 
-generic_oauth_client_secret:  
+# The application name is being used to find the client id and secret in the casdoor database for the generic oauth provider.
+# Only change the name of the application if there is already an application in the casdoor database with this name.
+generic_oauth_application_name: application
+generic_oauth_client_id: 5e7c01af6d262109e111
+generic_oauth_client_secret:
 
-# if lab_domain left unset then the default will be: <EXTERNAL_IP>.traefik.me
-# lab_domain:
+# If lab_domain left unset then the default will be: "{{ lab_external_ip }}.traefik.me".
+#lab_domain:
 
-# used for configuring sshwiftly and ssh key, defaults to 1000 userid if empty
+# Used for configuring sshwiftly and ssh key, defaults to string returned by "curl -s -4 https://ifconfig.me".
 lab_external_ip:
 
-# this user will be created if uid 1000 not exists
+# This user will be created if uid 1000 not exists.
 lab_user: labuser
 
-# Default system locale
+# Default system locale.
 locale_encoding: UTF-8
 locale_language: en_US
 locale_language_all: en_US:en
@@ -42,5 +40,5 @@ locale_origin: en_US
 locale_time: C
 system_timezone: Etc/UTC
 
-# Set to true when provisioning with Vagrant
+# Set to true when provisioning with Vagrant.
 is_vagrant: false
