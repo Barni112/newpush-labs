@@ -29,7 +29,8 @@ services:
       file: docker-compose.keycloak.yaml
       service: traefik-forward-auth
     depends_on:
-      - keycloak
+      keycloak:
+        condition: service_healthy
   mafl:
     extends:
       file: docker-compose.mafl.yaml

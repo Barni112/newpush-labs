@@ -24,7 +24,7 @@ oidc_client_id: traefik-forward-auth
 
 # List of allowed subdomains used to generate Keycloak redirectUris.
 # Each entry becomes: "https://{{ subdomain }}.{{ lab_domain }}/_oauth".
-redirect_subdomains:
+base_redirect_subdomains:
   - www
   - traefik
   - auth
@@ -32,7 +32,9 @@ redirect_subdomains:
   - sshwifty
   - portainer
   - dockge
-  - grafana
+# Each entry is rendered.
+redirect_domains:
+  - https://grafana.{{ lab_domain }}/login/generic_oauth
 
 # If lab_domain left unset then the default will be: "{{ lab_external_ip }}.traefik.me".
 #lab_domain:

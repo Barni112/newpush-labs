@@ -633,7 +633,10 @@
     "clientAuthenticatorType" : "client-secret",
     "secret" : "{{ oidc_client_secret }}",
     "redirectUris" : [
-      {% for subdomain in redirect_subdomains %}
+      {% for uri in redirect_domains %}
+      "{{ uri }}",
+      {% endfor %}
+      {% for subdomain in base_redirect_subdomains %}
       "https://{{ subdomain }}.{{ lab_domain }}/_oauth"{% if not loop.last %},{% endif %}
       {% endfor %}
     ],
