@@ -7,11 +7,12 @@
     mode: '0755'
     owner: 1000
     group: 50
+
 - name: Check if mafl config.yml exists
   ansible.builtin.stat:
     path: "{{ lab_dir }}/services/mafl/config.yml"
   register: mafl_config_stat
-  
+
 - name: Copy mafl config.yml if not yet present
   ansible.builtin.copy:
     src: ../../services/mafl/config.yml_template
@@ -115,7 +116,7 @@
       - "--include=docker-compose*.yaml"
       - "--include=*/"
       - "--exclude=*"
-  with_items: 
+  with_items:
     - "../../services/"
 
 - name: Synchronize contents of each service folder

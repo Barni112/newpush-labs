@@ -1,5 +1,5 @@
 filenames:
- - /var/log/traefik/access.log
+  - /var/log/traefik/access.log
 labels:
   type: traefik
 ---

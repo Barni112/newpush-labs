@@ -2,7 +2,10 @@
 # Distributed under the terms of the Modified BSD License.
 
 # Configuration file for JupyterHub
+# https://oauthenticator.readthedocs.io/en/latest/reference/api/gen/oauthenticator.generic.html#
+from oauthenticator.generic import GenericOAuthenticator
 import os
+
 
 c = get_config()  # noqa: F821
 
@@ -54,10 +57,8 @@ c.Authenticator.allow_all = True
 
 # Allow anyone to sign-up without approval
 # c.NativeAuthenticator.open_signup = True
-# https://oauthenticator.readthedocs.io/en/latest/reference/api/gen/oauthenticator.generic.html#
-from oauthenticator.generic import GenericOAuthenticator
-c.JupyterHub.authenticator_class = GenericOAuthenticator
 
+c.JupyterHub.authenticator_class = GenericOAuthenticator
 
 c.JupyterHub.public_url = f"https://jupyter-hub.{os.environ.get('DOMAIN')}"
 

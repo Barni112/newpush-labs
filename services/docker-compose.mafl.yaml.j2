@@ -2,12 +2,12 @@ version: "3.3"
 
 services:
   mafl:
-    image:   hywax/mafl
+    image: hywax/mafl
     env_file:
       - .env
     container_name: mafl
     healthcheck:
-      test: ["CMD-SHELL", "wget -qO- http://mafl:3000 || kill 1"]
+      test: [ "CMD-SHELL", "wget -qO- http://mafl:3000 || kill 1" ]
       interval: 5s
       timeout: 2s
       retries: 2
@@ -48,7 +48,7 @@ services:
     labels:
       - "com.centurylinklabs.watchtower.enable"
       - "traefik.enable=true"
-      
+
 networks:
   web:
     external: True

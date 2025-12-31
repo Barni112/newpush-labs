@@ -35,7 +35,7 @@
     recurse: true
 
 
-- name: Set Ownership on jupyterlab workspace 
+- name: Set Ownership on jupyterlab workspace
   ansible.builtin.file:
     path: "{{ lab_dir }}/services/dockge/stacks/lab-tools-jupyter/workspace"
     owner: 1000

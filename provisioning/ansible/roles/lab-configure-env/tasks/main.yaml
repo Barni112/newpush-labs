@@ -17,6 +17,7 @@
     create: true
     regexp: '^LAB_IP='
     mode: "0644"
+
 - name: Add CODER_ACCESS_URL variable to .env file if it doesn't exist
   ansible.builtin.lineinfile:
     path: "{{ lab_dir }}/services/.env"
@@ -24,8 +25,6 @@
     create: true
     regexp: '^CODER_ACCESS_URL='
     mode: "0644"
-
-
 
 - name: Get client secret from casdoor
   ansible.builtin.command: python3 {{ lab_dir }}/utils/casdoor/casdoor-rotate-secrets.py --db {{ lab_dir }}/services/casdoor/casdoor.db

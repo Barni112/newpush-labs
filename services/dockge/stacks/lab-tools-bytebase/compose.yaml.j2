@@ -13,7 +13,7 @@ services:
     #   - "5678:8080"
     volumes:
       - ./bytebase/data:/var/opt/bytebase
-    command: ["--data", "/var/opt/bytebase","--external-url","https://bytebase.${DOMAIN}"]
+    command: [ "--data", "/var/opt/bytebase","--external-url","https://bytebase.${DOMAIN}" ]
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.bytebase.rule=Host(`bytebase.${DOMAIN}`)"
@@ -37,8 +37,6 @@ services:
       - "mafl.icon.color=#007acc"
       - "mafl.status.enabled=true"
       - "mafl.status.interval=60"
-
-
 
   # employee-prod:
   #   image: bytebase/sample-database:mysql-employee-small

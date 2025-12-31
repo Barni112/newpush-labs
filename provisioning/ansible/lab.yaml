@@ -2,33 +2,32 @@
   hosts: lab
   remote_user: root
   roles:
-    - {role: common, tags: [always]}
-    - {role: lab-install-docker, tags: [setup]}
-    - {role: lab-user, tags: [setup]}
-    - {role: lab-copy-installer, tags: [setup]}
-    - {role: lab-copy-dockers, tags: [setup]}
-    - {role: lab-configure-env, tags: [setup]}
-    - {role: lab-set-permissions, tags: [setup]}
-    - {role: lab-utils-tty2web, tags: [setup]}
+    - { role: common, tags: [ always ] }
+    - { role: lab-install-docker, tags: [ setup ] }
+    - { role: lab-user, tags: [ setup ] }
+    - { role: lab-copy-installer, tags: [ setup ] }
+    - { role: lab-copy-dockers, tags: [ setup ] }
+    - { role: lab-configure-env, tags: [ setup ] }
+    - { role: lab-set-permissions, tags: [ setup ] }
+    - { role: lab-utils-tty2web, tags: [ setup ] }
   tasks:
     - name: Run newpush-lab to migrate
       ansible.builtin.command:
         cmd: /usr/local/bin/newpush-lab migrate
       tags:
         - always
-    #     creates: /path/to/some/file/created/by/migrate
-      
+
     - name: Run newpush-lab to recreate
       ansible.builtin.command:
         cmd: /usr/local/bin/newpush-lab recreate
       tags:
         - always
 
-    #     creates: /path/to/some/file/created/by/recreate
     # - name: Run newpush-lab to reconfig
 
     # - name: Run newpush-lab to free up disk space
     #   ansible.builtin.command: /usr/local/bin/newpush-lab free-up-disk-space
+
     # - name: Generate wazuh certs
     #   ansible.builtin.command: docker compose -f {{ lab_dir }}/services/dockge/stacks/lab-security-wazuh/generate-indexer-certs.yml run --rm generator
     #   args:
@@ -41,7 +40,7 @@
         name: lab-configure-security
       tags:
         - setup
-    
+
     # Run newpush-lab to restart after security configuration
     - name: Run newpush-lab to restart
       ansible.builtin.command:

@@ -1,4 +1,3 @@
-
 version: '3.8'
 
 services:
@@ -17,7 +16,7 @@ services:
       - POSTGRES_PASSWORD=skyvern
       - POSTGRES_POSTGRES_DB=skyvern
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U skyvern"]
+      test: [ "CMD-SHELL", "pg_isready -U skyvern" ]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -30,7 +29,7 @@ services:
     restart: on-failure
     # comment out if you want to externally call skyvern API
     # ports:
-      # - 8000:8000
+    # - 8000:8000
     volumes:
       - ./artifacts:/data/artifacts
       - ./videos:/data/videos
@@ -57,7 +56,7 @@ services:
       skyvern-db:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "test", "-f", "/app/.streamlit/secrets.toml"]
+      test: [ "CMD", "test", "-f", "/app/.streamlit/secrets.toml" ]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -106,7 +105,7 @@ services:
         condition: service_healthy
     networks:
       - web
-      
+
 networks:
   web:
     external: true

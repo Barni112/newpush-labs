@@ -5,7 +5,7 @@ services:
     volumes:
       - /home/{{ lab_user }}/workspace:/home/{{ lab_user }}/workspace
     command: [
-      "sh", 
+      "sh",
       "-c",
       "apk add --no-cache git && \
       git clone https://github.com/anthropics/courses.git /home/{{ lab_user }}/workspace/courses/anthropics && \
@@ -27,7 +27,7 @@ services:
     container_name: jupyter
     restart: unless-stopped
     privileged: true
-    working_dir: 
+    working_dir:
       /home/{{ lab_user }}/workspace
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -43,8 +43,8 @@ services:
       # - NB_UMASK=022
       - CHOWN_HOME=yes
       - GRANT_SUDO=yes
-      
-    command: ["start-notebook.py", "--IdentityProvider.token=''"]
+
+    command: [ "start-notebook.py", "--IdentityProvider.token=''" ]
     labels:
       - "com.centurylinklabs.watchtower.enable"
       - "traefik.enable=true"

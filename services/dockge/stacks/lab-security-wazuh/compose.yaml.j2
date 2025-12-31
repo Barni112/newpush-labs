@@ -79,7 +79,7 @@ services:
     hostname: wazuh.dashboard
     restart: always
     ports:
-      - 5601:5601
+      - "5601:5601"
     environment:
       - INDEXER_USERNAME=admin
       - INDEXER_PASSWORD=SecretPassword
@@ -123,7 +123,6 @@ services:
       - "mafl.icon.url=https://upload.wikimedia.org/wikipedia/commons/1/13/Wazuh-orig.png"
       - "mafl.icon.wrap=true"
       - "mafl.icon.color=#3dbcf3"
-      
     networks:
       - web
 
@@ -142,8 +141,6 @@ volumes:
   wazuh-indexer-data:
   wazuh-dashboard-config:
   wazuh-dashboard-custom:
-
-
 
 networks:
   web:

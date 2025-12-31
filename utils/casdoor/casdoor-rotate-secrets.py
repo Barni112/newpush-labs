@@ -1,8 +1,9 @@
-import sqlite3
 import argparse
 import os
 import random
+import sqlite3
 import string
+
 
 # Set up argument parser
 parser = argparse.ArgumentParser(description='Rotate secrets in the Casdoor database.')
@@ -26,6 +27,7 @@ def generate_random_secret(length=40):
     """Generate a random client secret."""
     characters = string.ascii_letters + string.digits
     return ''.join(random.choice(characters) for i in range(length))
+
 
 if args.rotate:
     new_client_secret = generate_random_secret()

@@ -3,7 +3,7 @@ services:
     image: amir20/dozzle:latest
     container_name: dozzle
     healthcheck:
-      test: ["CMD", "/dozzle", "healthcheck"]
+      test: [ "CMD", "/dozzle", "healthcheck" ]
       interval: 30s
       timeout: 60s
       retries: 5
@@ -53,6 +53,7 @@ services:
 #     - /var/log/stream.log
 #   network_mode: none
 #   restart: unless-stopped
+
 networks:
   web:
     external: True

@@ -1,6 +1,7 @@
 # Contributing Guidelines
 
-Thank you for considering contributing to our project! We welcome contributions from the community and are grateful for your support. To ensure a smooth and efficient collaboration, please follow these guidelines:
+Thank you for considering contributing to our project! We welcome contributions from the community and are grateful for
+your support. To ensure a smooth and efficient collaboration, please follow these guidelines:
 
 ## Getting Started
 
@@ -33,7 +34,8 @@ Thank you for considering contributing to our project! We welcome contributions 
    ```sh
    git push origin feature-or-bugfix-name
    ```
-2. **Open a Pull Request**: Open a pull request (PR) to the main repository. Provide a clear description of your changes and reference any related issues.
+2. **Open a Pull Request**: Open a pull request (PR) to the main repository. Provide a clear description of your changes
+   and reference any related issues.
 
 ## Code Review
 

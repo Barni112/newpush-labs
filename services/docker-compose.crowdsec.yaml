@@ -20,7 +20,7 @@ services:
     networks:
       - web
     ports:
-      - 127.0.0.1:9580:8080
+      - "127.0.0.1:9580:8080"
 networks:
   web:
     external: True

@@ -1,44 +1,44 @@
 services:
-    # flowise:
-    #     image: flowiseai/flowise
-    #     restart: always
-    #     environment:
-    #         - PORT=${PORT}
-    #         - CORS_ORIGINS=${CORS_ORIGINS}
-    #         - IFRAME_ORIGINS=${IFRAME_ORIGINS}
-    #         - FLOWISE_USERNAME=${FLOWISE_USERNAME}
-    #         - FLOWISE_PASSWORD=${FLOWISE_PASSWORD}
-    #         - FLOWISE_FILE_SIZE_LIMIT=${FLOWISE_FILE_SIZE_LIMIT}
-    #         - DEBUG=${DEBUG}
-    #         - DATABASE_PATH=${DATABASE_PATH}
-    #         - DATABASE_TYPE=${DATABASE_TYPE}
-    #         - DATABASE_PORT=${DATABASE_PORT}
-    #         - DATABASE_HOST=${DATABASE_HOST}
-    #         - DATABASE_NAME=${DATABASE_NAME}
-    #         - DATABASE_USER=${DATABASE_USER}
-    #         - DATABASE_PASSWORD=${DATABASE_PASSWORD}
-    #         - DATABASE_SSL=${DATABASE_SSL}
-    #         - DATABASE_SSL_KEY_BASE64=${DATABASE_SSL_KEY_BASE64}
-    #         - APIKEY_PATH=${APIKEY_PATH}
-    #         - SECRETKEY_PATH=${SECRETKEY_PATH}
-    #         - FLOWISE_SECRETKEY_OVERWRITE=${FLOWISE_SECRETKEY_OVERWRITE}
-    #         - LOG_LEVEL=${LOG_LEVEL}
-    #         - LOG_PATH=${LOG_PATH}
-    #         - BLOB_STORAGE_PATH=${BLOB_STORAGE_PATH}
-    #         - DISABLE_FLOWISE_TELEMETRY=${DISABLE_FLOWISE_TELEMETRY}
-    #         - MODEL_LIST_CONFIG_JSON=${MODEL_LIST_CONFIG_JSON}
-    #     ports:
-    #         - '${PORT}:${PORT}'
-    #     volumes:
-    #         - ~/.flowise:/root/.flowise
-    #     entrypoint: /bin/sh -c "sleep 3; flowise start"
+  # flowise:
+  #     image: flowiseai/flowise
+  #     restart: always
+  #     environment:
+  #         - PORT=${PORT}
+  #         - CORS_ORIGINS=${CORS_ORIGINS}
+  #         - IFRAME_ORIGINS=${IFRAME_ORIGINS}
+  #         - FLOWISE_USERNAME=${FLOWISE_USERNAME}
+  #         - FLOWISE_PASSWORD=${FLOWISE_PASSWORD}
+  #         - FLOWISE_FILE_SIZE_LIMIT=${FLOWISE_FILE_SIZE_LIMIT}
+  #         - DEBUG=${DEBUG}
+  #         - DATABASE_PATH=${DATABASE_PATH}
+  #         - DATABASE_TYPE=${DATABASE_TYPE}
+  #         - DATABASE_PORT=${DATABASE_PORT}
+  #         - DATABASE_HOST=${DATABASE_HOST}
+  #         - DATABASE_NAME=${DATABASE_NAME}
+  #         - DATABASE_USER=${DATABASE_USER}
+  #         - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+  #         - DATABASE_SSL=${DATABASE_SSL}
+  #         - DATABASE_SSL_KEY_BASE64=${DATABASE_SSL_KEY_BASE64}
+  #         - APIKEY_PATH=${APIKEY_PATH}
+  #         - SECRETKEY_PATH=${SECRETKEY_PATH}
+  #         - FLOWISE_SECRETKEY_OVERWRITE=${FLOWISE_SECRETKEY_OVERWRITE}
+  #         - LOG_LEVEL=${LOG_LEVEL}
+  #         - LOG_PATH=${LOG_PATH}
+  #         - BLOB_STORAGE_PATH=${BLOB_STORAGE_PATH}
+  #         - DISABLE_FLOWISE_TELEMETRY=${DISABLE_FLOWISE_TELEMETRY}
+  #         - MODEL_LIST_CONFIG_JSON=${MODEL_LIST_CONFIG_JSON}
+  #     ports:
+  #         - '${PORT}:${PORT}'
+  #     volumes:
+  #         - ~/.flowise:/root/.flowise
+  #     entrypoint: /bin/sh -c "sleep 3; flowise start"
 
   langfuse-server:
     image: langfuse/langfuse:2
     depends_on:
       langfuse-db:
         condition: service_healthy
-    # ports:
+      # ports:
       # - "3000:3000"
     environment:
       - DATABASE_URL=postgresql://postgres:postgres@langfuse-db:5432/postgres
@@ -79,12 +79,12 @@ services:
       - "mafl.status.interval=60"
     networks:
       - web
-      
+
   langfuse-db:
     image: postgres
     restart: always
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
       interval: 3s
       timeout: 3s
       retries: 10
@@ -143,7 +143,7 @@ services:
       - "mafl.status.interval=60"
     networks:
       - web
-      
+
   pipelines:
     image: ghcr.io/open-webui/pipelines:main
     container_name: pipelines
@@ -172,19 +172,19 @@ services:
     #########################################
     depends_on:
       - litellm-postgres
-    # ports:
+      # ports:
       # - "4000:4000" # Map the container port to the host, change the host port if necessary
     environment:
-        DATABASE_URL: "postgresql://llmproxy:dbpassword9090@litellm-postgres:5432/litellm"
-        STORE_MODEL_IN_DB: "True" # allows adding models to proxy via UI
-        LITELLM_MASTER_KEY: "sk-master-key-newpush-lab-20240513" # Your master key for the proxy server. Can use this to send /chat/completion requests etc
-        LITELLM_SALT_KEY: "sk-salt-key-newpush-lab-20240513" # Can NOT CHANGE THIS ONCE SET - It is used to encrypt/decrypt credentials stored in DB. If value of 'LITELLM_SALT_KEY' changes your models cannot be retrieved from DB
-        UI_USERNAME: "admin"
-        UI_PASSWORD: "hacker"
-        LANGFUSE_PUBLIC_KEY: "pk_kk"
-        LANGFUSE_SECRET_KEY: "sk_ss"
-        # Optional, defaults to https://cloud.langfuse.com
-        LANGFUSE_HOST: "https://langfuse.${DOMAIN}"
+      DATABASE_URL: "postgresql://llmproxy:dbpassword9090@litellm-postgres:5432/litellm"
+      STORE_MODEL_IN_DB: "True" # allows adding models to proxy via UI
+      LITELLM_MASTER_KEY: "sk-master-key-newpush-lab-20240513" # Your master key for the proxy server. Can use this to send /chat/completion requests etc
+      LITELLM_SALT_KEY: "sk-salt-key-newpush-lab-20240513" # Can NOT CHANGE THIS ONCE SET - It is used to encrypt/decrypt credentials stored in DB. If value of 'LITELLM_SALT_KEY' changes your models cannot be retrieved from DB
+      UI_USERNAME: "admin"
+      UI_PASSWORD: "hacker"
+      LANGFUSE_PUBLIC_KEY: "pk_kk"
+      LANGFUSE_SECRET_KEY: "sk_ss"
+      # Optional, defaults to https://cloud.langfuse.com
+      LANGFUSE_HOST: "https://langfuse.${DOMAIN}"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.litellm.rule=Host(`litellm.${DOMAIN}`)"
@@ -219,7 +219,7 @@ services:
       POSTGRES_USER: llmproxy
       POSTGRES_PASSWORD: dbpassword9090
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -d litellm -U llmproxy"]
+      test: [ "CMD-SHELL", "pg_isready -d litellm -U llmproxy" ]
       interval: 1s
       timeout: 5s
       retries: 10
