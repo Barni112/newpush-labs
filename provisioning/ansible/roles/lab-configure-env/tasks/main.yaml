@@ -26,20 +26,20 @@
     regexp: '^CODER_ACCESS_URL='
     mode: "0644"
 
-- name: Add LAB_OAUTH_CLIENT_ID if it doesn't exist
+- name: Add LAB_OIDC_CLIENT_ID if it doesn't exist
   ansible.builtin.lineinfile:
     path: "{{ lab_dir }}/services/.env"
-    line: "LAB_OAUTH_CLIENT_ID={{ oauth_client_id }}"
+    line: "LAB_OIDC_CLIENT_ID={{ oidc_client_id }}"
     create: true
-    regexp: '^LAB_OAUTH_CLIENT_ID='
+    regexp: '^LAB_OIDC_CLIENT_ID='
     mode: "0644"
 
-- name: Add LAB_OAUTH_CLIENT_SECRET if it doesn't exist
+- name: Add LAB_OIDC_CLIENT_SECRET if it doesn't exist
   ansible.builtin.lineinfile:
     path: "{{ lab_dir }}/services/.env"
-    line: "LAB_OAUTH_CLIENT_SECRET={{ oauth_client_secret }}"
+    line: "LAB_OIDC_CLIENT_SECRET={{ oidc_client_secret }}"
     create: true
-    regexp: '^LAB_OAUTH_CLIENT_SECRET='
+    regexp: '^LAB_OIDC_CLIENT_SECRET='
     mode: "0644"
 
 - name: Generate a password

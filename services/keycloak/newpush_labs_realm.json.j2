@@ -621,7 +621,7 @@
     "optionalClientScopes" : [ "address", "phone", "offline_access", "organization", "microprofile-jwt" ]
   }, {
     "id" : "3b504a32-a91b-4d31-8d03-d91476f435c8",
-    "clientId" : "{{ oauth_client_id }}",
+    "clientId" : "{{ oidc_client_id }}",
     "name" : "",
     "description" : "",
     "rootUrl" : "",
@@ -631,8 +631,12 @@
     "enabled" : true,
     "alwaysDisplayInConsole" : false,
     "clientAuthenticatorType" : "client-secret",
-    "secret" : "{{ oauth_client_secret }}",
-    "redirectUris" : [ "https://www.{{ lab_domain }}/_oauth" ],
+    "secret" : "{{ oidc_client_secret }}",
+    "redirectUris" : [
+      {% for subdomain in redirect_subdomains %}
+      "https://{{ subdomain }}.{{ lab_domain }}/_oauth"{% if not loop.last %},{% endif %}
+      {% endfor %}
+    ],
     "webOrigins" : [ "https://*.{{ lab_domain }}" ],
     "notBefore" : 0,
     "bearerOnly" : false,

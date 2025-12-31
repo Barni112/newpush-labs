@@ -20,7 +20,19 @@ anthropic_api_key:
 groq_api_key: 
 
 # Client id as present in keycloak.
-oauth_client_id: traefik-forward-auth
+oidc_client_id: traefik-forward-auth
+
+# List of allowed subdomains used to generate Keycloak redirectUris.
+# Each entry becomes: "https://{{ subdomain }}.{{ lab_domain }}/_oauth".
+redirect_subdomains:
+  - www
+  - traefik
+  - auth
+  - tty2web
+  - sshwifty
+  - portainer
+  - dockge
+  - grafana
 
 # If lab_domain left unset then the default will be: "{{ lab_external_ip }}.traefik.me".
 #lab_domain:

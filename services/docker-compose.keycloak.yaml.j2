@@ -10,8 +10,8 @@ services:
     environment:
       - DEFAULT_PROVIDER=oidc
       - PROVIDERS_OIDC_ISSUER_URL=https://auth.${DOMAIN}/realms/newpush-labs
-      - PROVIDERS_OIDC_CLIENT_ID={{ oauth_client_id }}
-      - PROVIDERS_OIDC_CLIENT_SECRET={{ oauth_client_secret }}
+      - PROVIDERS_OIDC_CLIENT_ID={{ oidc_client_id }}
+      - PROVIDERS_OIDC_CLIENT_SECRET={{ oidc_client_secret }}
       - PROVIDERS_OIDC_SKIP_VERIFY_TLS=true
       - SECRET={{ cookie_secret }}
       - LOG_LEVEL=debug
