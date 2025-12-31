@@ -57,24 +57,26 @@ log:
   filePath: "/var/log/traefik/traefik.log"
   format: json
 
+{% if not traefik_use_self_signed %}
 certificatesResolvers:
   default:
     acme:
       email: {{ acme_email }}
       # storage: /etc/traefik/google-acme-certs.json
-      # httpChallenge: 
+      # httpChallenge:
       #   entryPoint: http
       # caServer: https://dv.acme-v02.api.pki.goog/directory
       # eab:
       #   hmacEncoded: ...
       #   kid: ...
       storage: /etc/traefik/acme-zerossl-certs.json
-      httpChallenge: 
+      httpChallenge:
         entryPoint: http
       caServer: https://acme.zerossl.com/v2/DV90
       eab:
         hmacEncoded: {{ acme_zerossl_hmac_encoded }}
         kid: {{ acme_zerossl_kid }}
+{% endif %}
 
 experimental:
   plugins:

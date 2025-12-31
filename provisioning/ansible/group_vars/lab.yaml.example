@@ -7,6 +7,8 @@ lab_dir: /opt/student-lab
 acme_email: <ACME_EMAIL>
 acme_zerossl_hmac_encoded: <ACME_ZEROSSL_HMAC_ENCODED>
 acme_zerossl_kid: <ACME_ZEROSSL_KID>
+# Alternatively, add "self_signed.crt" and "self_signed.key" in services/traefik/certs and set traefik_use_self_signed to true.
+traefik_use_self_signed: false
 
 traefik_crowdsec_bouncer: true
 # If not present and CrowdSec Traefik plugin is enabled, suspected bots will receive an HTTP error code instead of a CAPTCHA challenge.

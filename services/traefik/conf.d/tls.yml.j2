@@ -1,0 +1,8 @@
+{% if traefik_use_self_signed %}
+tls:
+  stores:
+    default:
+      defaultCertificate:
+        certFile: /etc/traefik/certs/self_signed.crt
+        keyFile: /etc/traefik/certs/self_signed.key
+{% endif %}

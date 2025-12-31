@@ -145,6 +145,7 @@
       - "dockge/stacks/lab-tools-jupyter/compose.yaml"
       - "sshwifty/sshwifty.conf.json"
       - "traefik/conf.d/crowdsec.yml"
+      - "traefik/conf.d/tls.yml"
       - "traefik/traefik.yml"
       - "docker-compose.code-server.yaml"
       - "docker-compose.dockge.yaml"
