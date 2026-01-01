@@ -4,6 +4,8 @@ LAB_HOME="/opt/student-lab"
 SERVICES_DIR="$LAB_HOME/services"
 STACKS_DIR="$SERVICES_DIR/dockge/stacks"
 
+set -e
+
 # Manage lab function which takes two arguments:
 #  Action: Status, Start, Stop, Remove, Update
 #  Stack: core, lab-security-wazuh, lab-security-openvas, etc..
