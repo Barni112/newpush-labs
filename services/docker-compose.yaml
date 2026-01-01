@@ -14,16 +14,16 @@ services:
     extends:
       file: docker-compose.traefik.yaml
       service: whoami
-  keycloak-postgres:
+  postgres:
     extends:
-      file: docker-compose.keycloak.yaml
-      service: keycloak-postgres
+      file: docker-compose.postgres.yaml
+      service: postgres
   keycloak:
     extends:
       file: docker-compose.keycloak.yaml
       service: keycloak
     depends_on:
-      - keycloak-postgres
+      - postgres
   traefik-forward-auth:
     extends:
       file: docker-compose.keycloak.yaml

@@ -30,7 +30,7 @@ def test_traefik_running_and_enabled(host):
         "traefik",
         "mafl",
         "keycloak",
-        # "keycloak-postgres",
+        # "postgres",
         # "prometheus",
         # "grafana",
         # "node-exporter",

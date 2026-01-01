@@ -48,32 +48,13 @@ services:
       - web
       - keycloak-net
     depends_on:
-      - keycloak-postgres
+      - postgres
     healthcheck:
       test: [ "CMD-SHELL", "exec 3<>/dev/tcp/localhost/9000 && printf 'GET /health/ready HTTP/1.0\r\n\r\n' >&3 && timeout --preserve-status 1 cat <&3 | grep -m 1 -q 'HTTP/1.0 200'" ]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 1200s
-
-  keycloak-postgres:
-    image: postgres:18
-    container_name: keycloak-postgres
-    restart: unless-stopped
-    environment:
-      - POSTGRES_DB=keycloak
-      - POSTGRES_USER=keycloak
-      - POSTGRES_PASSWORD=${KC_DB_PASSWORD}
-    volumes:
-      - ./keycloak-postgres:/var/lib/postgresql
-    networks:
-      - keycloak-net
-#    healthcheck:
-#      test: ["CMD-SHELL, pg_isready -U keycloak"]
-#      interval: 30s
-#      timeout: 30s
-#      retries: 5
-#      start_period: 120s
 
 networks:
   web:

@@ -107,7 +107,7 @@
     dest: "{{ lab_dir }}/services/{{ item }}/"
   with_items:
     - "keycloak"
-    - "keycloak-postgres"
+    - "postgres"
     - "dockge"
     - "grafana"
     - "loki"
