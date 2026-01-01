@@ -42,10 +42,6 @@
     regexp: '^LAB_OIDC_CLIENT_SECRET='
     mode: "0644"
 
-- name: Generate a password
-  ansible.builtin.set_fact:
-    kc_db_password: "{{ lookup('ansible.builtin.password', '/dev/null', length=32, chars='ascii_letters,digits') }}"
-
 - name: Add KC_DB_PASSWORD if it doesn't exist
   ansible.builtin.lineinfile:
     path: "{{ lab_dir }}/services/.env"

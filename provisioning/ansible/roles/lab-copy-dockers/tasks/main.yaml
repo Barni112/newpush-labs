@@ -38,6 +38,10 @@
   ansible.builtin.set_fact:
     cookie_secret: "{{ lookup('ansible.builtin.password', '/dev/null', length=32, chars='ascii_letters,digits') }}"
 
+- name: Generate keycloak database password
+  ansible.builtin.set_fact:
+    kc_db_password: "{{ lookup('ansible.builtin.password', '/dev/null', length=32, chars='ascii_letters,digits') }}"
+
 - name: Get lab external ip
   ansible.builtin.command: "curl -s -4 https://ifconfig.me"
   register: cmd_get_lab_external_ip
