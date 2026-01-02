@@ -9,6 +9,8 @@ services:
       - POSTGRES_PASSWORD=${KC_DB_PASSWORD}
     volumes:
       - ./postgres:/var/lib/postgresql
+    labels:
+      - "traefik.enable=false"
     networks:
       - keycloak-net
 
