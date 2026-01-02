@@ -111,8 +111,11 @@ function migrate() {
   )
 
   for image in "${docker_images[@]}"; do
-    docker image rm $image
-    docker image pull $image
+    if [[ " $remove_docker_images " =~ " $image " ]]; then
+      docker image pull $image
+    else
+      echo "Skipping pull for $image (not present originally)"
+    fi
   done
 }
 
