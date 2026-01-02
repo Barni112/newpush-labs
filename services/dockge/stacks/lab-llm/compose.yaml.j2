@@ -32,7 +32,7 @@ services:
     #     volumes:
     #         - ~/.flowise:/root/.flowise
     #     entrypoint: /bin/sh -c "sleep 3; flowise start"
-  
+
   langfuse-server:
     image: langfuse/langfuse:2
     depends_on:
@@ -62,7 +62,9 @@ services:
       - "traefik.http.routers.langfuse-server.rule=Host(`langfuse.${DOMAIN}`)"
       - "traefik.http.routers.langfuse-server.entrypoints=https"
       - "traefik.http.routers.langfuse-server.tls=true"
+{% if not traefik_use_self_signed %}
       - "traefik.http.routers.langfuse-server.tls.certresolver=default"
+{% endif %}
       - "traefik.http.routers.langfuse-server.middlewares=traefik-forward-auth"
       - "traefik.http.services.langfuse-server.loadbalancer.server.port=3000"
       - "mafl.enable=true"
@@ -124,7 +126,9 @@ services:
       - "traefik.http.routers.open-webui.rule=Host(`open-webui.${DOMAIN}`)"
       - "traefik.http.routers.open-webui.entrypoints=https"
       - "traefik.http.routers.open-webui.tls=true"
+{% if not traefik_use_self_signed %}
       - "traefik.http.routers.open-webui.tls.certresolver=default"
+{% endif %}
       - "traefik.http.routers.open-webui.middlewares=traefik-forward-auth"
       - "traefik.http.services.open-webui.loadbalancer.server.port=8080"
       - "mafl.enable=true"
@@ -186,7 +190,9 @@ services:
       - "traefik.http.routers.litellm.rule=Host(`litellm.${DOMAIN}`)"
       - "traefik.http.routers.litellm.entrypoints=https"
       - "traefik.http.routers.litellm.tls=true"
+{% if not traefik_use_self_signed %}
       - "traefik.http.routers.litellm.tls.certresolver=default"
+{% endif %}
       - "traefik.http.routers.litellm.middlewares=traefik-forward-auth"
       - "traefik.http.services.litellm.loadbalancer.server.port=4000"
       - "mafl.enable=true"
@@ -235,7 +241,9 @@ services:
       - "traefik.http.routers.langflow.rule=Host(`langflow.${DOMAIN}`)"
       - "traefik.http.routers.langflow.entrypoints=https"
       - "traefik.http.routers.langflow.tls=true"
+{% if not traefik_use_self_signed %}
       - "traefik.http.routers.langflow.tls.certresolver=default"
+{% endif %}
       - "traefik.http.routers.langflow.middlewares=traefik-forward-auth"
       - "traefik.http.services.langflow.loadbalancer.server.port=7860"
       - "mafl.enable=true"

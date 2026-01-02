@@ -21,7 +21,9 @@ services:
       - "traefik.http.services.dozzle.loadbalancer.server.port=8080"
       - "traefik.http.routers.dozzle.service=dozzle"
       - "traefik.http.routers.dozzle.tls=true"
+{% if not traefik_use_self_signed %}
       - "traefik.http.routers.dozzle.tls.certresolver=default"
+{% endif %}
       - "traefik.http.routers.dozzle.middlewares=traefik-forward-auth"
       - "mafl.enable=true"
       - "mafl.title=Dozzle"

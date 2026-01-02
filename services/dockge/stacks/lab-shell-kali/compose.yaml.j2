@@ -33,7 +33,9 @@ services:
       - traefik.http.services.kali.loadbalancer.server.port=8080
       - traefik.http.routers.kali.service=kali
       - traefik.http.routers.kali.tls=true
+{% if not traefik_use_self_signed %}
       - traefik.http.routers.kali.tls.certresolver=default
+{% endif %}
       - traefik.http.routers.kali.middlewares=traefik-forward-auth
       - mafl.enable=true
       - mafl.title=Kali Linux

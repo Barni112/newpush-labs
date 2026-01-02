@@ -38,7 +38,9 @@ services:
       - "traefik.http.services.grafana.loadbalancer.server.port=3000"
       - "traefik.http.routers.grafana.service=grafana"
       - "traefik.http.routers.grafana.tls=true"
+{% if not traefik_use_self_signed %}
       - "traefik.http.routers.grafana.tls.certresolver=default"
+{% endif %}
     # ports:
     #  - '3000:3000'
     volumes:

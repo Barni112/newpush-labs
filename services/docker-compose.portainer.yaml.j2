@@ -17,7 +17,9 @@ services:
       - "traefik.http.services.portainer.loadbalancer.server.port=9000"
       - "traefik.http.routers.portainer.service=portainer"
       - "traefik.http.routers.portainer.tls=true"
+{% if not traefik_use_self_signed %}
       - "traefik.http.routers.portainer.tls.certresolver=default"
+{% endif %}
     ports:
       - "8000:8000"
       # - "9000:9000"

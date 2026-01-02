@@ -101,7 +101,9 @@ services:
       - "traefik.http.services.openvas.loadbalancer.server.port=80"
       - "traefik.http.routers.openvas.service=openvas"
       - "traefik.http.routers.openvas.tls=true"
+{% if not traefik_use_self_signed %}
       - "traefik.http.routers.openvas.tls.certresolver=default"
+{% endif %}
       - "traefik.http.routers.openvas.middlewares=traefik-forward-auth"
       - "mafl.enable=true"
       - "mafl.title=OpenVAS"

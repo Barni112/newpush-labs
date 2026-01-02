@@ -64,8 +64,11 @@ services:
       - "traefik.http.services.searxng.loadbalancer.server.port=8080"
       - "traefik.http.routers.searxng.service=searxng"
       - "traefik.http.routers.searxng.tls=true"
+{% if not traefik_use_self_signed %}
       - "traefik.http.routers.searxng.tls.certresolver=default"
-      - "traefik.http.routers.searxng.middlewares=traefik-forward-auth" 
+{% endif %}
+      - "traefik.http.routers.searxng.middlewares=traefik-forward-auth"
+
 networks:
   searxng:
   web:

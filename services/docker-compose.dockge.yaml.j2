@@ -22,7 +22,9 @@ services:
       - "traefik.http.services.dockge.loadbalancer.server.port=5001"
       - "traefik.http.routers.dockge.service=dockge"
       - "traefik.http.routers.dockge.tls=true"
+{% if not traefik_use_self_signed %}
       - "traefik.http.routers.dockge.tls.certresolver=default"
+{% endif %}
       - "traefik.http.routers.dockge.middlewares=traefik-forward-auth"
       - "mafl.enable=true"
       - "mafl.title=Dockge"

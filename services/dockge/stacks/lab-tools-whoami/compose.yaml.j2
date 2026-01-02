@@ -10,7 +10,9 @@ services:
       - "traefik.http.routers.whoami.rule=Host(`whoami.${DOMAIN}`)"
       - "traefik.http.routers.whoami.entrypoints=https"
       - "traefik.http.routers.whoami.tls=true"
+{% if not traefik_use_self_signed %}
       - "traefik.http.routers.whoami.tls.certresolver=default"
+{% endif %}
       - "traefik.http.routers.whoami.middlewares=traefik-forward-auth"
       - "mafl.enable=true"
       - "mafl.title=WhoAmI"

@@ -16,7 +16,9 @@ services:
       - "traefik.http.services.perplexica-api.loadbalancer.server.port=3001"
       - "traefik.http.routers.perplexica-api.service=perplexica-api"
       - "traefik.http.routers.perplexica-api.tls=true"
+{% if not traefik_use_self_signed %}
       - "traefik.http.routers.perplexica-api.tls.certresolver=default"
+{% endif %}
     volumes:
       - backend-dbstore:/home/perplexica/data
       - ./perplexica/config.toml:/home/perplexica/config.toml:rw
@@ -60,8 +62,10 @@ services:
       - "traefik.http.services.perplexica.loadbalancer.server.port=3000"
       - "traefik.http.routers.perplexica.service=perplexica"
       - "traefik.http.routers.perplexica.tls=true"
+{% if not traefik_use_self_signed %}
       - "traefik.http.routers.perplexica.tls.certresolver=default"
-      - "traefik.http.routers.perplexica.middlewares=traefik-forward-auth" 
+{% endif %}
+      - "traefik.http.routers.perplexica.middlewares=traefik-forward-auth"
 
 
 

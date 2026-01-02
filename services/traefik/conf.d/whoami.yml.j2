@@ -26,4 +26,4 @@ http:
       service: "whoami"
       priority: 100
       tls:
-        certResolver: default
+        {% if traefik_use_self_signed %}true{% else %}certResolver: default{% endif %}

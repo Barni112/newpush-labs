@@ -15,7 +15,9 @@ services:
       - "traefik.http.services.webssh.loadbalancer.server.port=8182"
       - "traefik.http.routers.webssh.service=webssh"
       - "traefik.http.routers.webssh.tls=true"
+{% if not traefik_use_self_signed %}
       - "traefik.http.routers.webssh.tls.certresolver=default"
+{% endif %}
       - "traefik.http.routers.webssh.middlewares=traefik-forward-auth"
       - "mafl.enable=true"
       - "mafl.title=Sshwifty"

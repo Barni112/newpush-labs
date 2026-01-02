@@ -40,7 +40,9 @@ services:
       - "traefik.http.services.jupyterhub.loadbalancer.server.port=8000"
       - "traefik.http.routers.jupyterhub.service=jupyterhub"
       - "traefik.http.routers.jupyterhub.tls=true"
+{% if not traefik_use_self_signed %}
       - "traefik.http.routers.jupyterhub.tls.certresolver=default"
+{% endif %}
       - "traefik.http.routers.jupyterhub.middlewares=traefik-forward-auth"
       - "mafl.enable=true"
       - "mafl.title=JupyterHub"

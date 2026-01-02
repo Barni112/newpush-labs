@@ -139,18 +139,35 @@
 - name: Define Jinja2 templates
   ansible.builtin.set_fact:
     jinja2_templates:
+      - "dockge/stacks/lab-llm/compose.yaml"
       - "dockge/stacks/lab-llm-lobechat/compose.yml"
       - "dockge/stacks/lab-llm-perplexica/perplexica/config.toml"
+      - "dockge/stacks/lab-llm-perplexica/compose.yaml"
       - "dockge/stacks/lab-llm-skyvern/compose.yaml"
+      - "dockge/stacks/lab-security-openvas/compose.yaml"
+      - "dockge/stacks/lab-security-wazuh/compose.yaml"
+      - "dockge/stacks/lab-shell-kali/compose.yaml"
+      - "dockge/stacks/lab-tools-bytebase/compose.yaml"
+      - "dockge/stacks/lab-tools-coder/compose.yaml"
       - "dockge/stacks/lab-tools-jupyter/compose.yaml"
+      - "dockge/stacks/lab-tools-jupyter-hub/compose.yaml"
+      - "dockge/stacks/lab-tools-kestra/compose.yaml"
+      - "dockge/stacks/lab-tools-searxng/compose.yaml"
+      - "dockge/stacks/lab-tools-whoami/compose.yaml"
       - "sshwifty/sshwifty.conf.json"
+      - "traefik/conf.d/code-server.yml"
       - "traefik/conf.d/crowdsec.yml"
       - "traefik/conf.d/tls.yml"
+      - "traefik/conf.d/whoami.yml"
       - "traefik/traefik.yml"
       - "docker-compose.code-server.yaml"
       - "docker-compose.dockge.yaml"
+      - "docker-compose.dozzle.yaml"
       - "docker-compose.grafana.yaml"
+      - "docker-compose.mafl.yaml"
       - "docker-compose.portainer.yaml"
+      - "docker-compose.sshwifty.yaml"
+      - "docker-compose.traefik.yaml"
 
 - name: Render Jinja2 templates
   ansible.builtin.template:

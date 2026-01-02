@@ -71,7 +71,9 @@ services:
       - "traefik.http.services.kestra.loadbalancer.server.port=8080"
       - "traefik.http.routers.kestra.service=kestra"
       - "traefik.http.routers.kestra.tls=true"
+{% if not traefik_use_self_signed %}
       - "traefik.http.routers.kestra.tls.certresolver=default"
+{% endif %}
       - "traefik.http.routers.kestra.middlewares=traefik-forward-auth"
       - "mafl.enable=true"
       - "mafl.title=kestra"

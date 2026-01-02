@@ -111,7 +111,9 @@ services:
       - "traefik.http.services.wazuh.loadbalancer.server.scheme=https"
       - "traefik.http.routers.wazuh.service=wazuh"
       - "traefik.http.routers.wazuh.tls=true"
+{% if not traefik_use_self_signed %}
       - "traefik.http.routers.wazuh.tls.certresolver=default"
+{% endif %}
       - "mafl.enable=true"
       - "mafl.title=Wazuh"
       - "mafl.description=Open Source XDR and SIEM"

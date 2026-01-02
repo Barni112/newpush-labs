@@ -21,7 +21,9 @@ services:
       - "traefik.http.services.mafl.loadbalancer.server.port=3000"
       - "traefik.http.routers.mafl.service=mafl"
       - "traefik.http.routers.mafl.tls=true"
+{% if not traefik_use_self_signed %}
       - "traefik.http.routers.mafl.tls.certresolver=default"
+{% endif %}
       - "traefik.http.routers.mafl.middlewares=traefik-forward-auth"
       # - "traefik.http.middlewares.myauth.basicauth.users=admin:$$apr1$$KpWYLDjd$$cQQ6TGVc33/IgmSQ/xgnZ/"
       # - "traefik.http.routers.mafl.middlewares=myauth"

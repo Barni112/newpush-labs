@@ -53,7 +53,9 @@ services:
       - "traefik.http.services.jupyter.loadbalancer.server.port=8888"
       - "traefik.http.routers.jupyter.service=jupyter"
       - "traefik.http.routers.jupyter.tls=true"
+{% if not traefik_use_self_signed %}
       - "traefik.http.routers.jupyter.tls.certresolver=default"
+{% endif %}
       - "traefik.http.routers.jupyter.middlewares=traefik-forward-auth"
       - "mafl.enable=true"
       - "mafl.title=JupyterLab"

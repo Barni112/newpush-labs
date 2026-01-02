@@ -21,7 +21,9 @@ services:
       - "traefik.http.services.bytebase.loadbalancer.server.port=8080"
       - "traefik.http.routers.bytebase.service=bytebase"
       - "traefik.http.routers.bytebase.tls=true"
+{% if not traefik_use_self_signed %}
       - "traefik.http.routers.bytebase.tls.certresolver=default"
+{% endif %}
       - "traefik.http.routers.bytebase.middlewares=traefik-forward-auth"
 
       - "mafl.enable=true"

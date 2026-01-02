@@ -9,7 +9,9 @@ services:
       - "traefik.http.services.lobechat.loadbalancer.server.port=3210"
       - "traefik.http.routers.lobechat.service=lobechat"
       - "traefik.http.routers.lobechat.tls=true"
+{% if not traefik_use_self_signed %}
       - "traefik.http.routers.lobechat.tls.certresolver=default"
+{% endif %}
       - "mafl.enable=true"
       - "mafl.title=Lobe Chat"
       - "mafl.description=The latest web-based interactive development environment for chat, code, and data."
