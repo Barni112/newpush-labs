@@ -302,8 +302,17 @@
       ],
       "{{ oidc_client_id }}": [
         {
-          "id": "dda146d6-812d-45e6-93ca-05faf6f38963",
-          "name": "grafanaadmin",
+          "id": "47e45996-715f-42f7-bda5-53492f2e2f16",
+          "name": "GF_ADMIN",
+          "description": "",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "3b504a32-a91b-4d31-8d03-d91476f435c8",
+          "attributes": {}
+        },
+        {
+          "id": "1e238772-e6b7-4dce-bd89-c1ec285b7c22",
+          "name": "GF_EDITOR",
           "description": "",
           "composite": false,
           "clientRole": true,
@@ -517,7 +526,7 @@
           "realm-admin"
         ],
         "{{ oidc_client_id }}": [
-          "grafanaadmin"
+          "GF_ADMIN"
         ]
       },
       "notBefore": 0,
@@ -866,7 +875,9 @@
         "{{ uri }}",
         {% endfor %}
         {% for subdomain in base_redirect_subdomains %}
-        "https://{{ subdomain }}.{{ lab_domain }}/_oauth"{% if not loop.last %},{% endif %}
+        "https://{{ subdomain }}.{{ lab_domain }}/_oauth"
+        {% if not loop.last %},
+        {% endif %}
         {% endfor %}
       ],
       "webOrigins": [
@@ -1493,6 +1504,9 @@
           "config": {
             "user.attribute": "foo",
             "introspection.token.claim": "true",
+            "userinfo.token.claim": "true",
+            "id.token.claim": "true",
+            "lightweight.claim": "false",
             "access.token.claim": "true",
             "claim.name": "resource_access.${client_id}.roles",
             "jsonType.label": "String",
