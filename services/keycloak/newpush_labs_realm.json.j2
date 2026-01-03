@@ -300,7 +300,17 @@
           "attributes": {}
         }
       ],
-      "traefik-forward-auth": [],
+      "{{ oidc_client_id }}": [
+        {
+          "id": "dda146d6-812d-45e6-93ca-05faf6f38963",
+          "name": "grafanaadmin",
+          "description": "",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "3b504a32-a91b-4d31-8d03-d91476f435c8",
+          "attributes": {}
+        }
+      ],
       "security-admin-console": [],
       "admin-cli": [],
       "account-console": [],
@@ -505,6 +515,9 @@
           "manage-events",
           "manage-identity-providers",
           "realm-admin"
+        ],
+        "{{ oidc_client_id }}": [
+          "grafanaadmin"
         ]
       },
       "notBefore": 0,
