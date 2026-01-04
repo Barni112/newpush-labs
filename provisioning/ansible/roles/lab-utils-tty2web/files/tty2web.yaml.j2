@@ -6,7 +6,11 @@ http:
       entryPoints:
         - https
       tls:
+{% if traefik_use_self_signed %}
+        true
+{% else %}
         certResolver: default
+{% endif %}
       middlewares:
         - traefik-forward-auth@docker
   services:
