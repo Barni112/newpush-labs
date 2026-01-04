@@ -17,25 +17,7 @@ hcaptcha_site_key:
 # Bring your own keys (optional).
 openai_api_key: 
 anthropic_api_key: 
-groq_api_key: 
-
-# Client id as present in keycloak.
-oidc_client_id: traefik-forward-auth
-
-# List of allowed subdomains used to generate Keycloak redirectUris.
-# Each entry becomes: "https://{{ subdomain }}.{{ lab_domain }}/_oauth".
-base_redirect_subdomains:
-  - www
-  - traefik
-  - auth
-  - tty2web
-  - sshwifty
-  - portainer
-  - dockge
-  - logs
-# Each entry is rendered.
-redirect_domains:
-  - https://grafana.{{ lab_domain }}/login/generic_oauth
+groq_api_key:
 
 # If lab_domain left unset then the default will be: "{{ lab_external_ip }}.traefik.me".
 #lab_domain:
@@ -56,3 +38,38 @@ system_timezone: Etc/UTC
 
 # Set to true when provisioning with Vagrant.
 is_vagrant: false
+
+# Client id as present in keycloak.
+oidc_client_id: traefik-forward-auth
+
+# List of allowed subdomains used to generate Keycloak redirectUris.
+# Each entry becomes: "https://{{ subdomain }}.{{ lab_domain }}/_oauth".
+base_redirect_subdomains:
+  - www
+  - traefik
+  - auth
+  - tty2web
+  - sshwifty
+  - portainer
+  - dockge
+  - logs
+  - kali
+  - lobe
+  - perplexica
+  - skyvern
+  - langfuse
+  - open-webui
+  - litellm
+  - langflow
+  - openvas
+  - wazuh
+  - bytebase
+  - coder
+  - jupyter-hub
+  - jupyter
+  - kestra
+  - searxng
+  - whoami
+# Each entry is rendered.
+redirect_domains:
+  - https://grafana.{{ lab_domain }}/login/generic_oauth
