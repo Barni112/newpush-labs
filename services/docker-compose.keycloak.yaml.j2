@@ -46,7 +46,9 @@ services:
       - "traefik.http.services.keycloak.loadbalancer.server.port=8080"
       - "traefik.http.routers.keycloak.service=keycloak"
       - "traefik.http.routers.keycloak.tls=true"
+{% if not traefik_use_self_signed %}
       - "traefik.http.routers.keycloak.tls.certresolver=default"
+{% endif %}
     networks:
       - web
       - keycloak-net
