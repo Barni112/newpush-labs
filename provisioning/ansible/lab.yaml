@@ -17,6 +17,12 @@
       tags:
         - always
 
+    - name: Run newpush-lab to build
+      ansible.builtin.command:
+        cmd: /usr/local/bin/newpush-lab build
+      tags:
+        - always
+
     - name: Run newpush-lab to recreate
       ansible.builtin.command:
         cmd: /usr/local/bin/newpush-lab recreate

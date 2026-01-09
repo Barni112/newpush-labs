@@ -54,6 +54,9 @@ function manage_lab() {
     "remove")
       docker compose -f $LAB_HOME/services/docker-compose.yaml -p $project_name down
       ;;
+    "build")
+      docker compose -f $compose_file -p $project_name build
+      ;;
     "recreate")
       docker compose -f $compose_file -p $project_name up -d --force-recreate
       ;;
@@ -170,6 +173,9 @@ case $1 in
     ;;
   "remove")
     manage_lab remove $2
+    ;;
+  "build")
+    manage_lab build $2
     ;;
   "recreate")
     manage_lab recreate $2
