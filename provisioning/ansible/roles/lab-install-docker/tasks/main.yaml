@@ -37,11 +37,22 @@
   register: docker_network_web
   changed_when: false
 
-- name: Create Docker network
+- name: Create Docker network 'web'
   ansible.builtin.command: docker network create web
   register: docker_network_create
   when: docker_network_web.stdout == ""
   changed_when: docker_network_create.rc == 0
+
+- name: Check if Docker network 'keycloak-net' exists
+  ansible.builtin.command: docker network ls --filter name=^keycloak-net$ --format "{{ '{{' }} .Name {{ '}}' }}"
+  register: docker_network_keycloak_net
+  changed_when: false
+
+- name: Create Docker network 'keycloak-net'
+  ansible.builtin.command: docker network create keycloak-net
+  register: docker_network_create_kc
+  when: docker_network_keycloak_net.stdout == ""
+  changed_when: docker_network_create_kc.rc == 0
 
 # - name: Install Google Cloud SDK
 #   aansible.builtin.pt_key:
