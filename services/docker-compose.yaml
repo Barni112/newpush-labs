@@ -23,7 +23,8 @@ services:
       file: docker-compose.keycloak.yaml
       service: keycloak
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
   traefik-forward-auth:
     extends:
       file: docker-compose.keycloak.yaml
