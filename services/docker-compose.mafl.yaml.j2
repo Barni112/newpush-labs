@@ -25,6 +25,17 @@ services:
       - "traefik.http.routers.mafl.tls.certresolver=default"
 {% endif %}
       - "traefik.http.routers.mafl.middlewares=traefik-forward-auth"
+      - "traefik.http.routers.mafl-nonwww.rule=Host(`${DOMAIN}`)"
+      - "traefik.http.routers.mafl-nonwww.entrypoints=https"
+      - "traefik.http.routers.mafl-nonwww.tls=true"
+{% if not traefik_use_self_signed %}
+      - "traefik.http.routers.mafl-nonwww.tls.certresolver=default"
+{% endif %}
+      - "traefik.http.routers.mafl-nonwww.middlewares=redirect-to-www"
+      - "traefik.http.routers.mafl-nonwww.service=mafl"
+      - "traefik.http.middlewares.redirect-to-www.redirectregex.regex=^https?://[^/]+/?(.*)$"
+      - "traefik.http.middlewares.redirect-to-www.redirectregex.replacement=https://www.${DOMAIN}/$$1"
+      - "traefik.http.middlewares.redirect-to-www.redirectregex.permanent=true"
       # - "traefik.http.middlewares.myauth.basicauth.users=admin:$$apr1$$KpWYLDjd$$cQQ6TGVc33/IgmSQ/xgnZ/"
       # - "traefik.http.routers.mafl.middlewares=myauth"
 
